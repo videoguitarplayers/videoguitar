@@ -22,10 +22,10 @@ public class Tela extends JFrame{
 		
 		List< TextoLegenda > listaTextoLegenda = new ArrayList<>();
 		
-		listaTextoLegenda.add( new TextoLegenda( "Teste ", 6 ) );
-		listaTextoLegenda.add( new TextoLegenda( "de ", 20 ) );
-		listaTextoLegenda.add( new TextoLegenda( "texto ", 100 ) );
-		listaTextoLegenda.add( new TextoLegenda( "legenda", 150 ) );
+		listaTextoLegenda.add( new TextoLegenda( "Teste ", 3000 ) );
+		listaTextoLegenda.add( new TextoLegenda( "de ", 2000 ) );
+		listaTextoLegenda.add( new TextoLegenda( "texto ", 4000 ) );
+		listaTextoLegenda.add( new TextoLegenda( "legenda", 5000 ) );
 		
 		Legenda draw = new Legenda( listaTextoLegenda );
 

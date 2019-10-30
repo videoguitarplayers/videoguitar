@@ -2,7 +2,6 @@ package com.videoguitar.tela.teste;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -55,18 +54,29 @@ public class Legenda extends JPanel {
 		this.setGradiente();
 		this.setTextoLegenda( this.texto );
 
-		this.preencherTamanhoTexto();
+		this.preencherMetaDataTexto();		
 	}
 	
 
-	private void preencherTamanhoTexto() {
+	private void preencherMetaDataTexto() {
 
 		// posicao inicial do texto
 		int tamanhoTextoAnterior = 20;
 		
 		for (int i = 0; i < this.listaTextoLegenda.size(); i++) {
-			tamanhoTextoAnterior += font.getStringBounds( this.listaTextoLegenda.get(i).getTexto(), this.g2D.getFontRenderContext() ).getMaxX(); 
-			this.listaTextoLegenda.get(i).setTemanhoTexto(tamanhoTextoAnterior);
+			final double comprimentoTexto = font.getStringBounds( this.listaTextoLegenda.get(i).getTexto(), this.g2D.getFontRenderContext() ).getMaxX();
+			tamanhoTextoAnterior += comprimentoTexto; 
+			// salva o comprimento do texto
+			this.listaTextoLegenda.get(i).setPosicaoDireitaTexto(tamanhoTextoAnterior);
+			
+			System.out.println("Comprimento: " + comprimentoTexto);
+			
+			// calcula o tempo de delay conforme o tempo de duracao
+			int delay = (int) ( ( this.listaTextoLegenda.get(i).getDuracaoEfeito() / comprimentoTexto) + 0.5);
+			this.listaTextoLegenda.get(i).setDelay(delay);
+			
+			System.out.println( "Delay: " +delay);
+			
 		}
 	}
 
@@ -94,27 +104,11 @@ public class Legenda extends JPanel {
 		
 		for (TextoLegenda textoLegenda : listaTextoLegenda) {
 			timer.setDelay( textoLegenda.getDelay() );
-			if( textoLegenda.getTemanhoTexto() >= this.valorCor1 ){
+			if( textoLegenda.getPosicaoDireitaTexto() >= this.valorCor1 ){
 				this.atualizarGradiente();
+				return;
 			}
 		}
-		
-		
-//		if (this.valorCor1 < 400) {
-//			this.atualizarGradiente();
-//			timer.setDelay(60);
-//
-//			if (this.valorCor1 >= 100 && this.valorCor1 <= 200) {
-//				timer.setDelay(20);
-//			}
-//
-//			if (this.valorCor1 >= 200) {
-//				timer.setDelay(100);
-//			}
-//		} else {
-//			timer.stop();
-//			System.err.println("Timer stopped");
-//		}	
 	}
 	
 }
